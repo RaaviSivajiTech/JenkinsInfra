@@ -18,7 +18,7 @@ pipeline {
           stage ("Terraform Init") {
                 steps {
                     dir("${env.WORKSPACE}"){
-                      withAWS(credentials: "AWSCLI", region: 'us-east-2')  {  
+                      withAWS(credentials: "AWSCLI", region: 'us-east-1')  {  
                         sh "terraform init"
                       }  
                     }
@@ -27,14 +27,14 @@ pipeline {
 
         stage("Terraform Plan") {
             steps {
-                withAWS(credentials: "AWSCLI", region: 'us-east-2') {
+                withAWS(credentials: "AWSCLI", region: 'us-east-1') {
                     sh 'terraform plan'
                 }
             }
         }
          stage("Terraform Apply") {
             steps {
-                withAWS(credentials: "AWSCLI", region: 'us-east-2') {
+                withAWS(credentials: "AWSCLI", region: 'us-east-1') {
                     sh 'terraform apply --auto-approve'
                 }
             }
@@ -47,7 +47,7 @@ pipeline {
         }
        stage("Terraform Destroy") {
             steps {
-                withAWS(credentials: "AWSCLI", region: 'us-east-2') {
+                withAWS(credentials: "AWSCLI", region: 'us-east-1') {
                     sh 'terraform destroy --auto-approve'
                 }
             }
